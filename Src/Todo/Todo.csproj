@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>CQRS.Todo</AssemblyName>
+        <RootNamespace>CQRS.Todo</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Domain" />
+    </ItemGroup>
+
+</Project>
