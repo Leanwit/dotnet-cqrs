@@ -6,4 +6,8 @@
         <RootNamespace>CQRS.App.WebApi</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Src\CQRS.Shared\CQRS.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
