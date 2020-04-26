@@ -10,4 +10,8 @@
       <Folder Include="Domain" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CQRS.Shared\CQRS.Shared.csproj" />
+    </ItemGroup>
+
 </Project>

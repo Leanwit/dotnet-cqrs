@@ -1,6 +1,6 @@
 namespace CQRS.Shared.Domain.Bus.Command
 {
-    public interface Command
+    public abstract class Command
     {
         
     }

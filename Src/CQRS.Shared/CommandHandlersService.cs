@@ -26,7 +26,7 @@ namespace CQRS.Shared
                 foreach (var handlerInterfaceType in interfaces.Where(i =>
                     i.IsGenericType && i.GetGenericTypeDefinition() == typeof(CommandHandler<>)))
                 {
-                    FormatSubscribers(assembly, handlerInterfaceType, indexedCommandHandlers);
+                    FormatCommand(assembly, handlerInterfaceType, indexedCommandHandlers);
                 }
             }
 
@@ -34,19 +34,19 @@ namespace CQRS.Shared
             return services;
         }
 
-        private static void FormatSubscribers(Assembly assembly, TypeInfo handlerInterfaceType,
+        private static void FormatCommand(Assembly assembly, TypeInfo handlerInterfaceType,
             Dictionary<Type, Type> information)
         {
             var handlerClassTypes = assembly.GetLoadableTypes()
                 .Where(handlerInterfaceType.IsAssignableFrom);
 
-            var eventType = handlerInterfaceType.GenericTypeArguments.FirstOrDefault();
+            var command = handlerInterfaceType.GenericTypeArguments.FirstOrDefault();
 
-            if (eventType == null) return;
+            if (command == null) return;
 
             foreach (var handlerClassType in handlerClassTypes)
             {
-                information.Add(handlerClassType, eventType);
+                information.Add(command, handlerClassType);
             }
         }
 

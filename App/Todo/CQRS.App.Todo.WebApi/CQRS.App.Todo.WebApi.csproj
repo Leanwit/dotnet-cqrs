@@ -8,6 +8,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Src\CQRS.Shared\CQRS.Shared.csproj" />
+      <ProjectReference Include="..\..\..\Src\CQRS.Todo\CQRS.Todo.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.3" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.3" />
+      <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     </ItemGroup>
 
 </Project>
