@@ -1,44 +1,42 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Command;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CQRS.Shared.Infrastructure.Bus.Command
 {
     public class InMemoryCommandBus : CommandBus
     {
-        private readonly CommandHandlersInformation _information;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _provider;
 
-        public InMemoryCommandBus(IServiceProvider serviceProvider, CommandHandlersInformation information)
+        public InMemoryCommandBus(IServiceProvider provider)
         {
-            _serviceProvider = serviceProvider;
-            this._information = information;
+            _provider = provider;
         }
 
         public async Task Dispatch(Domain.Bus.Command.Command command)
         {
-            var commandHandlerClass =
-                _information.IndexedCommandHandlers.FirstOrDefault(x => x.Key == command.GetType()).Value;
+            var wrappedHandlers = GetWrappedHandlers(command);
 
-            if (commandHandlerClass == null) throw new CommandNotRegisteredError(command);
+            foreach (CommandHandler handler in wrappedHandlers)
+            {
+                await handler.Handle(command).ConfigureAwait(false);
+            }
+        }
 
-            try
-            {
-                Type handlerType = typeof(CommandHandler<>).MakeGenericType(command.GetType());
-                using IServiceScope scope = _serviceProvider.CreateScope();
-                dynamic handlers = scope.ServiceProvider.GetServices(handlerType);
-                
-                foreach (var handler in handlers)
-                {
-                    await handler.Handle(command);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+        private IEnumerable<CommandHandler> GetWrappedHandlers(Domain.Bus.Command.Command domainEvent)
+        {
+            Type handlerType = typeof(CommandHandle<>).MakeGenericType(domainEvent.GetType());
+            Type wrapperType = typeof(CommandHandler<>).MakeGenericType(domainEvent.GetType());
+
+            IEnumerable handlers =
+                (IEnumerable) _provider.GetService(typeof(IEnumerable<>).MakeGenericType(handlerType));
+
+            IEnumerable<CommandHandler> wrappedHandlers = handlers.Cast<object>()
+                .Select(handler => (CommandHandler) Activator.CreateInstance(wrapperType, handler));
+            return wrappedHandlers;
         }
     }
 }

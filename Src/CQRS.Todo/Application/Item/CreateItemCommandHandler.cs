@@ -3,7 +3,7 @@ using CQRS.Shared.Domain.Bus.Command;
 
 namespace CQRS.Todo.Application.Item
 {
-    public class CreateItemCommandHandler : CommandHandler<CreateItemCommand>
+    public class CreateItemCommandHandler : CommandHandle<CreateItemCommand>
     {
         public async Task Handle(CreateItemCommand command)
         {
