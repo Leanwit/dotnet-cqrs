@@ -2,24 +2,8 @@ using System.Threading.Tasks;
 
 namespace CQRS.Shared.Domain.Bus.Command
 {
-    public abstract class CommandHandler
+    public interface CommandHandler<TCommand> where TCommand : Command
     {
-        public abstract Task Handle(Command command);
-    }
-
-    public class CommandHandler<T> : CommandHandler
-        where T : Command
-    {
-        private readonly CommandHandle<T> _handler;
-
-        public CommandHandler(CommandHandle<T> handler)
-        {
-            _handler = handler;
-        }
-
-        public override Task Handle(Command domainEvent)
-        {
-            return _handler.Handle((T) domainEvent);
-        }
+        Task Handle(TCommand domainEvent);
     }
 }

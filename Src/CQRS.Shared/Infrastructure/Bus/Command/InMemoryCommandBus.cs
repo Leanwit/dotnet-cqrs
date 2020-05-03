@@ -19,23 +19,25 @@ namespace CQRS.Shared.Infrastructure.Bus.Command
         public async Task Dispatch(Domain.Bus.Command.Command command)
         {
             var wrappedHandlers = GetWrappedHandlers(command);
-
-            foreach (CommandHandler handler in wrappedHandlers)
+            
+            if(wrappedHandlers == null) throw new CommandNotRegisteredError(command);
+            
+            foreach (CommandHandlerWrapper handler in wrappedHandlers)
             {
                 await handler.Handle(command).ConfigureAwait(false);
             }
         }
 
-        private IEnumerable<CommandHandler> GetWrappedHandlers(Domain.Bus.Command.Command domainEvent)
+        private IEnumerable<CommandHandlerWrapper> GetWrappedHandlers(Domain.Bus.Command.Command domainEvent)
         {
-            Type handlerType = typeof(CommandHandle<>).MakeGenericType(domainEvent.GetType());
-            Type wrapperType = typeof(CommandHandler<>).MakeGenericType(domainEvent.GetType());
+            Type handlerType = typeof(CommandHandler<>).MakeGenericType(domainEvent.GetType());
+            Type wrapperType = typeof(CommandHandlerWrapper<>).MakeGenericType(domainEvent.GetType());
 
             IEnumerable handlers =
                 (IEnumerable) _provider.GetService(typeof(IEnumerable<>).MakeGenericType(handlerType));
 
-            IEnumerable<CommandHandler> wrappedHandlers = handlers.Cast<object>()
-                .Select(handler => (CommandHandler) Activator.CreateInstance(wrapperType, handler));
+            IEnumerable<CommandHandlerWrapper> wrappedHandlers = handlers.Cast<object>()
+                .Select(handler => (CommandHandlerWrapper) Activator.CreateInstance(wrapperType, handler));
             return wrappedHandlers;
         }
     }

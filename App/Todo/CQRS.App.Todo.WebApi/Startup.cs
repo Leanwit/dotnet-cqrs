@@ -1,6 +1,12 @@
 using CQRS.Shared.Domain.Bus.Command;
+using CQRS.Shared.Domain.Bus.Query;
 using CQRS.Shared.Infrastructure.Bus.Command;
+using CQRS.Shared.Infrastructure.Bus.Query;
 using CQRS.Todo.Application.Item;
+using CQRS.Todo.Application.Item.Create;
+using CQRS.Todo.Application.Item.Find;
+using CQRS.Todo.Domain.Item;
+using CQRS.Todo.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +22,11 @@ namespace CQRS.App.WebApi
         {
             services.AddControllersWithViews();
             services.AddScoped<CommandBus, InMemoryCommandBus>();
-            services.AddScoped<CommandHandle<CreateItemCommand>, CreateItemCommandHandler>();
+            services.AddScoped<CommandHandler<CreateItemCommand>, CreateItemCommandHandler>();
+
+            services.AddScoped<QueryBus, InMemoryQueryBus>();
+            services.AddScoped<QueryHandler<FindItemQuery, ItemResponse>, FindItemQueryHandler>();
+            services.AddSingleton<ItemRepository, InMemoryItemRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

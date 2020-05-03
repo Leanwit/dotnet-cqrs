@@ -4,8 +4,8 @@ namespace CQRS.Shared.Domain.Bus.Command
 {
     public class CommandNotRegisteredError : Exception
     {
-        public CommandNotRegisteredError(Bus.Command.Command command) : base(
-            $"The command {command} hasn't a command handler associated")
+        public CommandNotRegisteredError(Command command) : base(
+            $"The command {command} has not a command handler associated")
         {
         }
     }

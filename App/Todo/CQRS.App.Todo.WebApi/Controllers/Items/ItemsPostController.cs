@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Command;
 using CQRS.Todo.Application.Item;
+using CQRS.Todo.Application.Item.Create;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -22,7 +23,7 @@ namespace CQRS.App.WebApi.Controllers.Items
         {
             body = JsonConvert.DeserializeObject(Convert.ToString(body));
 
-            await this._bus.Dispatch(new CreateItemCommand(id, body["name"].ToString()));
+            await _bus.Dispatch(new CreateItemCommand(new Guid(id), body["name"].ToString()));
 
             return StatusCode(201);
         }

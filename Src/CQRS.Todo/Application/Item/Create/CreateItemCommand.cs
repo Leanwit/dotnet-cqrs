@@ -1,16 +1,17 @@
+using System;
 using CQRS.Shared.Domain.Bus.Command;
 
-namespace CQRS.Todo.Application.Item
+namespace CQRS.Todo.Application.Item.Create
 {
     public class CreateItemCommand : Command
     {
-        public string Id { get; private set; }
+        public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public CreateItemCommand(string name, string id)
+        public CreateItemCommand(Guid id, string name) 
         {
-            Name = name;
             Id = id;
+            Name = name;
         }
     }
 }
