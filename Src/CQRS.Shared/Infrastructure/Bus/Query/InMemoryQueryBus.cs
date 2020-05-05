@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CQRS.Shared.Domain.Bus.Command;
 using CQRS.Shared.Domain.Bus.Query;
 
 namespace CQRS.Shared.Infrastructure.Bus.Query
@@ -10,6 +12,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Query
     public class InMemoryQueryBus : QueryBus
     {
         private readonly IServiceProvider _provider;
+        private static readonly ConcurrentDictionary<Type, object> _queryHandlers = new ConcurrentDictionary<Type, object>();
 
         public InMemoryQueryBus(IServiceProvider provider)
         {
@@ -35,10 +38,11 @@ namespace CQRS.Shared.Infrastructure.Bus.Query
             IEnumerable handlers =
                 (IEnumerable) _provider.GetService(typeof(IEnumerable<>).MakeGenericType(handlerType));
 
-            IEnumerable<QueryHandlerWrapper<TResponse>> wrappedHandlers = handlers.Cast<object>()
-                .Select(handler => (QueryHandlerWrapper<TResponse>) Activator.CreateInstance(wrapperType, handler));
-            
-            return wrappedHandlers.FirstOrDefault();
+
+            var wrappedHandlers = (QueryHandlerWrapper<TResponse>)_queryHandlers.GetOrAdd(query.GetType(), handlers.Cast<object>()
+                .Select(handler => (QueryHandlerWrapper<TResponse>) Activator.CreateInstance(wrapperType, handler)).FirstOrDefault());
+
+            return wrappedHandlers;
         }
     }
 }
