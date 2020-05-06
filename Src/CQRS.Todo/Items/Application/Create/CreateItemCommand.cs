@@ -1,7 +1,7 @@
 using System;
 using CQRS.Shared.Domain.Bus.Command;
 
-namespace CQRS.Todo.Application.Item.Create
+namespace CQRS.Todo.Items.Application.Create
 {
     public class CreateItemCommand : Command
     {

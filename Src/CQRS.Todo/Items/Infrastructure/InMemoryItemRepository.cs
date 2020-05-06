@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CQRS.Todo.Domain.Item;
+using CQRS.Todo.Items.Domain;
 
-namespace CQRS.Todo.Infrastructure
+namespace CQRS.Todo.Items.Infrastructure
 {
     public class InMemoryItemRepository : ItemRepository
     {
-        private List<Item> _context;
+        private readonly List<Item> _context;
 
         public InMemoryItemRepository()
         {

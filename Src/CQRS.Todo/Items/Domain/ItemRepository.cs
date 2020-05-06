@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CQRS.Todo.Domain.Item
+namespace CQRS.Todo.Items.Domain
 {
     public interface ItemRepository
     {

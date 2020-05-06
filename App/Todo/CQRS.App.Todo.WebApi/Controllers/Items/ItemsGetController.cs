@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Query;
-using CQRS.Todo.Application.Item;
+using CQRS.Todo.Items.Application;
+using CQRS.Todo.Items.Application.Find;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CQRS.App.WebApi.Controllers.Items

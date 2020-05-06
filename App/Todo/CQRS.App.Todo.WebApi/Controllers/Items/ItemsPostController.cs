@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Command;
-using CQRS.Todo.Application.Item;
-using CQRS.Todo.Application.Item.Create;
+using CQRS.Todo.Items.Application.Create;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

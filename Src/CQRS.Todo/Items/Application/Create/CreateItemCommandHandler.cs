@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Command;
-using CQRS.Todo.Application.Item.Create;
-using CQRS.Todo.Domain.Item;
+using CQRS.Todo.Items.Domain;
 
-namespace CQRS.Todo.Application.Item
+namespace CQRS.Todo.Items.Application.Create
 {
     public class CreateItemCommandHandler : CommandHandler<CreateItemCommand>
     {
@@ -17,7 +16,7 @@ namespace CQRS.Todo.Application.Item
 
         public async Task Handle(CreateItemCommand command)
         {
-            _repository.Add(new Domain.Item.Item(command.Id, command.Name));
+            await _repository.Add(new Item(command.Id, command.Name));
         }
     }
 }

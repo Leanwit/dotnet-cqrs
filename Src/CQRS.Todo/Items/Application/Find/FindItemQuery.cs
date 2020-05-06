@@ -1,7 +1,7 @@
 using System;
 using CQRS.Shared.Domain.Bus.Query;
 
-namespace CQRS.Todo.Application.Item
+namespace CQRS.Todo.Items.Application.Find
 {
     public class FindItemQuery : Query
     {

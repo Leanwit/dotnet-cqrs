@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Query;
-using CQRS.Todo.Domain.Item;
+using CQRS.Todo.Items.Domain;
 
-namespace CQRS.Todo.Application.Item.Find
+namespace CQRS.Todo.Items.Application.Find
 {
     public class FindItemQueryHandler : QueryHandler<FindItemQuery, ItemResponse>
     {
@@ -15,7 +15,7 @@ namespace CQRS.Todo.Application.Item.Find
 
         public async Task<ItemResponse> Handle(FindItemQuery query)
         {
-            Domain.Item.Item item = await _repository.GetById(query.Id);
+            Item item = await _repository.GetById(query.Id);
             
             return new ItemResponse(item.Id, item.Name, item.IsCompleted);
         }
