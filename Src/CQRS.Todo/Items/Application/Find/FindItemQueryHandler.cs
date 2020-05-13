@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus.Query;
+using CQRS.Shared.Domain.Bus;
 using CQRS.Todo.Items.Domain;
 
 namespace CQRS.Todo.Items.Application.Find

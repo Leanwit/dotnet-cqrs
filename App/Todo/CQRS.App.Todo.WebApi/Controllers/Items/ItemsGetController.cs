@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus.Query;
+using CQRS.Shared.Domain.Bus;
 using CQRS.Todo.Items.Application;
 using CQRS.Todo.Items.Application.Find;
 using Microsoft.AspNetCore.Mvc;

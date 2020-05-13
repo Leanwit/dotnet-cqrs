@@ -1,4 +1,4 @@
-namespace CQRS.Shared.Domain.Bus.Query
+namespace CQRS.Shared.Domain.Bus
 {
     public abstract class Query
     {

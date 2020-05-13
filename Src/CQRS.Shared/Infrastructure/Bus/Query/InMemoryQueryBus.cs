@@ -4,9 +4,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus.Query;
+using CQRS.Shared.Domain.Bus;
 
-namespace CQRS.Shared.Infrastructure.Bus.Query
+namespace CQRS.Shared.Infrastructure.Bus
 {
     public class InMemoryQueryBus : QueryBus
     {
@@ -18,7 +18,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Query
             _provider = provider;
         }
 
-        public async Task<TResponse> Send<TResponse>(Domain.Bus.Query.Query query)
+        public async Task<TResponse> Send<TResponse>(Query query)
         {
             var handler = GetWrappedHandlers<TResponse>(query);
             
@@ -27,7 +27,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Query
             return await handler.Handle(query, _provider);
         }
         
-        private QueryHandlerWrapper<TResponse> GetWrappedHandlers<TResponse>(Domain.Bus.Query.Query query)
+        private QueryHandlerWrapper<TResponse> GetWrappedHandlers<TResponse>(Query query)
         {
             Type[] typeArgs = {query.GetType(), typeof(TResponse)};
             

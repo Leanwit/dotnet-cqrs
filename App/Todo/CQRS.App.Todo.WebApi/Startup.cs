@@ -1,7 +1,5 @@
-using CQRS.Shared.Domain.Bus.Command;
-using CQRS.Shared.Domain.Bus.Query;
-using CQRS.Shared.Infrastructure.Bus.Command;
-using CQRS.Shared.Infrastructure.Bus.Query;
+using CQRS.Shared.Domain.Bus;
+using CQRS.Shared.Infrastructure.Bus;
 using CQRS.Todo.Items.Application;
 using CQRS.Todo.Items.Application.Create;
 using CQRS.Todo.Items.Application.Find;

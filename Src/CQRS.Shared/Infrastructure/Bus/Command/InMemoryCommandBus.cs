@@ -4,9 +4,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus.Command;
+using CQRS.Shared.Domain.Bus;
 
-namespace CQRS.Shared.Infrastructure.Bus.Command
+namespace CQRS.Shared.Infrastructure.Bus
 {
     public class InMemoryCommandBus : CommandBus
     {
@@ -18,7 +18,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Command
             _provider = provider;
         }
 
-        public async Task Dispatch(Domain.Bus.Command.Command command)
+        public async Task Dispatch(Command command)
         {
             var wrappedHandlers = GetWrappedHandlers(command);
             
@@ -30,7 +30,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Command
             }
         }
 
-        private IEnumerable<CommandHandlerWrapper> GetWrappedHandlers(Domain.Bus.Command.Command command)
+        private IEnumerable<CommandHandlerWrapper> GetWrappedHandlers(Command command)
         {
             Type handlerType = typeof(CommandHandler<>).MakeGenericType(command.GetType());
             Type wrapperType = typeof(CommandHandlerWrapper<>).MakeGenericType(command.GetType());

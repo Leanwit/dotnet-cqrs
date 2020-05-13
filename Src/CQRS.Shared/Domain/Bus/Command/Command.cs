@@ -1,4 +1,4 @@
-namespace CQRS.Shared.Domain.Bus.Command
+namespace CQRS.Shared.Domain.Bus
 {
     public abstract class Command
     {
