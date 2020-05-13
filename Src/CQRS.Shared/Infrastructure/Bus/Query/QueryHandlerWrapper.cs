@@ -1,24 +1,22 @@
+using System;
 using System.Threading.Tasks;
-namespace CQRS.Shared.Domain.Bus.Query
+using CQRS.Shared.Domain.Bus.Query;
+
+namespace CQRS.Shared.Infrastructure.Bus.Query
 {
     internal abstract class QueryHandlerWrapper<TResponse>
     {
-        public abstract Task<TResponse> Handle(Query query);
+        public abstract Task<TResponse> Handle(Domain.Bus.Query.Query query, IServiceProvider provider);
     }
 
     internal class QueryHandlerWrapper<TQuery, TResponse> : QueryHandlerWrapper<TResponse>
-        where TQuery : Query
+        where TQuery : Domain.Bus.Query.Query
     {
-        private readonly QueryHandler<TQuery,TResponse>  _handler;
+        public override Task<TResponse> Handle(Domain.Bus.Query.Query query, IServiceProvider provider)
+        {
+            var handler = (QueryHandler<TQuery, TResponse>) provider.GetService(typeof(QueryHandler<TQuery, TResponse>));
 
-        public QueryHandlerWrapper(QueryHandler<TQuery, TResponse> handler)
-        {
-            _handler = handler;
-        }
-        
-        public override Task<TResponse> Handle(Query query)
-        {
-            return _handler.Handle((TQuery) query);
+            return handler.Handle((TQuery) query);
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CQRS.Shared.Domain.Bus.Command;
-using CQRS.Shared.Domain.Bus.Query;
 
 namespace CQRS.Shared.Infrastructure.Bus.Command
 {
@@ -27,7 +26,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Command
             
             foreach (CommandHandlerWrapper handler in wrappedHandlers)
             {
-                await handler.Handle(command).ConfigureAwait(false);
+                await handler.Handle(command, _provider).ConfigureAwait(false);
             }
         }
 
@@ -40,7 +39,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Command
                 (IEnumerable) _provider.GetService(typeof(IEnumerable<>).MakeGenericType(handlerType));
 
             var wrappedHandlers = _commandHandlers.GetOrAdd(command.GetType(), handlers.Cast<object>()
-                .Select(handler => (CommandHandlerWrapper) Activator.CreateInstance(wrapperType, handler)));
+                .Select(handler => (CommandHandlerWrapper) Activator.CreateInstance(wrapperType)));
             
             return wrappedHandlers;
         }

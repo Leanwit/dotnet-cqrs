@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus.Command;
 using CQRS.Shared.Domain.Bus.Query;
 
 namespace CQRS.Shared.Infrastructure.Bus.Query
@@ -25,7 +24,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Query
             
             if(handler == null) throw new QueryNotRegisteredError(query);
 
-            return await handler.Handle(query);
+            return await handler.Handle(query, _provider);
         }
         
         private QueryHandlerWrapper<TResponse> GetWrappedHandlers<TResponse>(Domain.Bus.Query.Query query)
@@ -40,7 +39,7 @@ namespace CQRS.Shared.Infrastructure.Bus.Query
 
 
             var wrappedHandlers = (QueryHandlerWrapper<TResponse>)_queryHandlers.GetOrAdd(query.GetType(), handlers.Cast<object>()
-                .Select(handler => (QueryHandlerWrapper<TResponse>) Activator.CreateInstance(wrapperType, handler)).FirstOrDefault());
+                .Select(handler => (QueryHandlerWrapper<TResponse>) Activator.CreateInstance(wrapperType)).FirstOrDefault());
 
             return wrappedHandlers;
         }

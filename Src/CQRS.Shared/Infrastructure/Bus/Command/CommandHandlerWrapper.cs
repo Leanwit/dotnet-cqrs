@@ -1,25 +1,21 @@
+using System;
 using System.Threading.Tasks;
+using CQRS.Shared.Domain.Bus.Command;
 
-namespace CQRS.Shared.Domain.Bus.Command
+namespace CQRS.Shared.Infrastructure.Bus.Command
 {
     internal abstract class CommandHandlerWrapper
     {
-        public abstract Task Handle(Command command);
+        public abstract Task Handle(Domain.Bus.Command.Command command, IServiceProvider provider);
     }
 
     internal class CommandHandlerWrapper<TCommand> : CommandHandlerWrapper
-        where TCommand : Command
+        where TCommand : Domain.Bus.Command.Command
     {
-        private readonly CommandHandler<TCommand> _handler;
-
-        public CommandHandlerWrapper(CommandHandler<TCommand> handler)
+        public override Task Handle(Domain.Bus.Command.Command domainEvent, IServiceProvider provider)
         {
-            _handler = handler;
-        }
-
-        public override Task Handle(Command domainEvent)
-        {
-            return _handler.Handle((TCommand) domainEvent);
+            var handler = (CommandHandler<TCommand>) provider.GetService(typeof(CommandHandler<TCommand>));
+            return handler.Handle((TCommand) domainEvent);
         }
     }
 }
