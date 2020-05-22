@@ -103,3 +103,21 @@ In this case I added in a shared project to reutilize if we have more than one b
 [InMemoryCommandBus](https://github.com/Leanwit/dotnet-cqrs/blob/master/Src/CQRS.Shared/Infrastructure/Bus/Command/InMemoryCommandBus.cs)
 
 [InMemoryQueryBus](https://github.com/Leanwit/dotnet-cqrs/blob/master/Src/CQRS.Shared/Infrastructure/Bus/Query/InMemoryQueryBus.cs)
+
+---
+
+## Dependency Injection
+
+### Command
+
+```csharp
+services.AddScoped<CommandHandler<CreateItemCommand>, CreateItemCommandHandler>();
+```
+
+### Query
+
+```csharp
+services.AddScoped<QueryHandler<FindItemQuery, ItemResponse>, FindItemQueryHandler>();
+```
+
+🚧 Pending to add an extension method to add automatically dependencies.
