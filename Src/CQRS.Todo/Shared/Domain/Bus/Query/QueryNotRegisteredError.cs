@@ -1,6 +1,6 @@
 using System;
 
-namespace CQRS.Shared.Domain.Bus
+namespace CQRS.Todo.Shared.Domain.Bus
 {
     public class QueryNotRegisteredError : Exception
     {

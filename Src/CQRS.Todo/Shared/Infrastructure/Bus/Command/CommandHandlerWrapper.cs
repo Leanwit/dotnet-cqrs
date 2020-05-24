@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Domain.Bus;
+using Command = CQRS.Todo.Shared.Domain.Bus.Command;
 
-namespace CQRS.Shared.Infrastructure.Bus
+namespace CQRS.Todo.Shared.Infrastructure.Bus
 {
     internal abstract class CommandHandlerWrapper
     {

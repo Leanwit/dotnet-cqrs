@@ -1,10 +1,8 @@
-using CQRS.Shared.Domain.Bus;
-using CQRS.Shared.Infrastructure.Bus;
-using CQRS.Todo.Items.Application;
-using CQRS.Todo.Items.Application.Create;
-using CQRS.Todo.Items.Application.Find;
 using CQRS.Todo.Items.Domain;
 using CQRS.Todo.Items.Infrastructure;
+using CQRS.Todo.Shared;
+using CQRS.Todo.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Infrastructure.Bus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,11 +17,13 @@ namespace CQRS.App.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<CommandBus, InMemoryCommandBus>();
-            services.AddScoped<CommandHandler<CreateItemCommand>, CreateItemCommandHandler>();
 
+            services.AddCommandServices(typeof(Command).Assembly);
+            services.AddScoped<CommandBus, InMemoryCommandBus>();
+
+            services.AddQueryServices(typeof(Query).Assembly);
             services.AddScoped<QueryBus, InMemoryQueryBus>();
-            services.AddScoped<QueryHandler<FindItemQuery, ItemResponse>, FindItemQueryHandler>();
+
             services.AddSingleton<ItemRepository, InMemoryItemRepository>();
         }
 

@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus;
 using CQRS.Todo.Items.Domain;
 
 namespace CQRS.Todo.Items.Application.Create
 {
-    public class CreateItemCommandHandler : CommandHandler<CreateItemCommand>
+    public class CreateItemCommandHandler : Shared.Domain.Bus.CommandHandler<CreateItemCommand>
     {
         private readonly ItemRepository _repository;
 

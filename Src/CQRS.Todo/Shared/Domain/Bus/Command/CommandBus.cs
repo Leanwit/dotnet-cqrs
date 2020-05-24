@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace CQRS.Shared.Domain.Bus
+namespace CQRS.Todo.Shared.Domain.Bus
 {
     public interface CommandBus
     {

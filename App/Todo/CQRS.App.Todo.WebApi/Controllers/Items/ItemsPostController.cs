@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus;
 using CQRS.Todo.Items.Application.Create;
+using CQRS.Todo.Shared.Domain.Bus;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -20,7 +20,7 @@ namespace CQRS.App.WebApi.Controllers.Items
         [HttpPost("{id}")]
         public async Task<IActionResult> Index(string id, [FromBody] dynamic body)
         {
-            body = JsonConvert.DeserializeObject(Convert.ToString(body));
+            body = await JsonConvert.DeserializeObjectAsync(Convert.ToString(body));
 
             await _bus.Dispatch(new CreateItemCommand(new Guid(id), body["name"].ToString()));
 

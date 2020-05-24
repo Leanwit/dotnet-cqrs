@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Domain.Bus;
 
-namespace CQRS.Shared.Infrastructure.Bus
+namespace CQRS.Todo.Shared.Infrastructure.Bus
 {
     internal abstract class QueryHandlerWrapper<TResponse>
     {

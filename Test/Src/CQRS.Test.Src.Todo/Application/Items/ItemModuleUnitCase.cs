@@ -11,12 +11,12 @@ namespace CQRS.Test.Src.Todo.Application.Items
         {
             this.Repository = new Mock<ItemRepository>();
         }
-        
+
         protected void ShouldHaveSave(Item item)
         {
             this.Repository.Verify(x => x.Add(item), Times.AtLeastOnce());
         }
-        
+
         protected void ShouldSearch(Item response)
         {
             this.Repository.Setup(x => x.GetById(response.Id)).ReturnsAsync(response);

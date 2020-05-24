@@ -41,11 +41,7 @@ public class CreateItemCommandHandler : CommandHandler<CreateItemCommand>
 
 ### Interfaces to add in Domain Layer
 
-In this case I added in shared project to reutilize if we have more than one bounded context.
-
 [Command Interfaces](https://github.com/Leanwit/dotnet-cqrs/tree/master/Src/CQRS.Shared/Domain/Bus/Command)
-
----
 
 ## Queries
 
@@ -86,25 +82,17 @@ public class FindItemQueryHandler : QueryHandler<FindItemQuery, ItemResponse>
 
 ### Interfaces to add in Domain Layer
 
-In this case I added in a shared project to reutilize if we have more than one bounded context.
-
 [Query Interfaces](https://github.com/Leanwit/dotnet-cqrs/tree/master/Src/CQRS.Shared/Domain/Bus/Query)
-
----
 
 ## Domain Events
 
 🚧 Pending to add an example.
-
----
 
 ## InMemoryBus implementation
 
 [InMemoryCommandBus](https://github.com/Leanwit/dotnet-cqrs/blob/master/Src/CQRS.Shared/Infrastructure/Bus/Command/InMemoryCommandBus.cs)
 
 [InMemoryQueryBus](https://github.com/Leanwit/dotnet-cqrs/blob/master/Src/CQRS.Shared/Infrastructure/Bus/Query/InMemoryQueryBus.cs)
-
----
 
 ## Dependency Injection
 
@@ -120,4 +108,9 @@ services.AddScoped<CommandHandler<CreateItemCommand>, CreateItemCommandHandler>(
 services.AddScoped<QueryHandler<FindItemQuery, ItemResponse>, FindItemQueryHandler>();
 ```
 
-🚧 Pending to add an extension method to add automatically dependencies.
+### Automatic Load
+
+```csharp
+services.AddCommandServices(typeof(Command).Assembly);
+services.AddQueryServices(typeof(Query).Assembly);
+```

@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Src\CQRS.Shared\CQRS.Shared.csproj" />
       <ProjectReference Include="..\..\..\Src\CQRS.Todo\CQRS.Todo.csproj" />
     </ItemGroup>
 

@@ -1,5 +1,5 @@
 using System;
-using CQRS.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Domain.Bus;
 
 namespace CQRS.Todo.Items.Application.Create
 {

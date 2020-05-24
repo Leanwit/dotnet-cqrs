@@ -4,9 +4,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CQRS.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Domain.Bus;
+using Command = CQRS.Todo.Shared.Domain.Bus.Command;
 
-namespace CQRS.Shared.Infrastructure.Bus
+namespace CQRS.Todo.Shared.Infrastructure.Bus
 {
     public class InMemoryCommandBus : CommandBus
     {

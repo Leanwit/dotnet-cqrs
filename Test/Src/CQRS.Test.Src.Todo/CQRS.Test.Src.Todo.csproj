@@ -17,5 +17,4 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Src\CQRS.Todo\CQRS.Todo.csproj" />
     </ItemGroup>
-
 </Project>
