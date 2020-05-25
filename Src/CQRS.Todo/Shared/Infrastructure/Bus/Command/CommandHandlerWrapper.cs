@@ -13,10 +13,10 @@ namespace CQRS.Todo.Shared.Infrastructure.Bus
     internal class CommandHandlerWrapper<TCommand> : CommandHandlerWrapper
         where TCommand : Command
     {
-        public override Task Handle(Command domainEvent, IServiceProvider provider)
+        public override async Task Handle(Command domainEvent, IServiceProvider provider)
         {
             var handler = (CommandHandler<TCommand>) provider.GetService(typeof(CommandHandler<TCommand>));
-            return handler.Handle((TCommand) domainEvent);
+            await handler.Handle((TCommand) domainEvent);
         }
     }
 }

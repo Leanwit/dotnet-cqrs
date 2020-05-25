@@ -27,7 +27,7 @@ namespace CQRS.Todo.Shared.Infrastructure.Bus
             
             foreach (CommandHandlerWrapper handler in wrappedHandlers)
             {
-                await handler.Handle(command, _provider).ConfigureAwait(false);
+                await handler.Handle(command, _provider);
             }
         }
 
