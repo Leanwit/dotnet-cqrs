@@ -84,10 +84,6 @@ public class FindItemQueryHandler : QueryHandler<FindItemQuery, ItemResponse>
 
 [Query Interfaces](https://github.com/Leanwit/dotnet-cqrs/tree/master/Src/CQRS.Shared/Domain/Bus/Query)
 
-## Domain Events
-
-🚧 Pending to add an example.
-
 ## InMemoryBus implementation
 
 [InMemoryCommandBus](https://github.com/Leanwit/dotnet-cqrs/blob/master/Src/CQRS.Shared/Infrastructure/Bus/Command/InMemoryCommandBus.cs)
