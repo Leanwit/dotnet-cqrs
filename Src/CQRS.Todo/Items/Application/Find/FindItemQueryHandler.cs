@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using CQRS.Todo.Items.Domain;
+using CQRS.Todo.Shared.Domain.Bus.Queries;
 
 namespace CQRS.Todo.Items.Application.Find
 {
-    public class FindItemQueryHandler : Shared.Domain.Bus.QueryHandler<FindItemQuery, ItemResponse>
+    public class FindItemQueryHandler : QueryHandler<FindItemQuery, ItemResponse>
     {
         private readonly ItemRepository _repository;
 

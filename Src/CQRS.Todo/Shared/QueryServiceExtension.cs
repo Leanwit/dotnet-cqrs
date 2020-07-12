@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Reflection;
-using CQRS.Todo.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Domain.Bus.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CQRS.Todo.Shared

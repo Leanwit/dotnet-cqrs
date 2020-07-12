@@ -1,6 +1,6 @@
 using System;
 
-namespace CQRS.Todo.Shared.Domain.Bus
+namespace CQRS.Todo.Shared.Domain.Bus.Commands
 {
     public class CommandNotRegisteredError : Exception
     {

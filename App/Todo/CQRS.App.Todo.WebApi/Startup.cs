@@ -1,8 +1,10 @@
 using CQRS.Todo.Items.Domain;
 using CQRS.Todo.Items.Infrastructure;
 using CQRS.Todo.Shared;
-using CQRS.Todo.Shared.Domain.Bus;
-using CQRS.Todo.Shared.Infrastructure.Bus;
+using CQRS.Todo.Shared.Domain.Bus.Commands;
+using CQRS.Todo.Shared.Domain.Bus.Queries;
+using CQRS.Todo.Shared.Infrastructure.Bus.Commands;
+using CQRS.Todo.Shared.Infrastructure.Bus.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

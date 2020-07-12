@@ -4,9 +4,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CQRS.Todo.Shared.Domain.Bus;
+using CQRS.Todo.Shared.Domain.Bus.Queries;
 
-namespace CQRS.Todo.Shared.Infrastructure.Bus
+namespace CQRS.Todo.Shared.Infrastructure.Bus.Queries
 {
     public class InMemoryQueryBus : QueryBus
     {
