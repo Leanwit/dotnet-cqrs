@@ -21,22 +21,14 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
 
   test:
     runs-on: ubuntu-latest
-    services:
-      sql:
-        image: mcr.microsoft.com/mssql/server
-        ports:
-          - 1433:1433
-        env:
-          SA_PASSWORD: Your_password123
-          ACCEPT_EULA: Y
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
     - name: run tests
       run: dotnet test CQRS.sln
