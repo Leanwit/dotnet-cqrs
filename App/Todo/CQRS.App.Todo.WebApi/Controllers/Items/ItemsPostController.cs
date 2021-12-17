@@ -5,26 +5,28 @@ using CQRS.Todo.Shared.Domain.Bus.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace CQRS.App.WebApi.Controllers.Items
+namespace CQRS.App.WebApi.Controllers.Items;
+
+[Route("Items")]
+public class ItemsPostController : Controller
 {
-    [Route("Items")]
-    public class ItemsPostController : Controller
+    private readonly CommandBus _bus;
+
+    public ItemsPostController(CommandBus bus)
     {
-        private readonly CommandBus _bus;
+        _bus = bus;
+    }
 
-        public ItemsPostController(CommandBus bus)
-        {
-            _bus = bus;
-        }
+    [HttpPost("{id}")]
+    public async Task<IActionResult> Index(string id, [FromBody] dynamic body)
+    {
+        body = JsonConvert.DeserializeObject(Convert.ToString(body));
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> Index(string id, [FromBody] dynamic body)
-        {
-            body = await JsonConvert.DeserializeObjectAsync(Convert.ToString(body));
+        if (body == null)
+            return BadRequest("body is empty");
 
-            await _bus.Dispatch(new CreateItemCommand(new Guid(id), body["name"].ToString()));
+        await _bus.Dispatch(new CreateItemCommand(new Guid(id), body["name"].ToString()));
 
-            return StatusCode(201);
-        }
+        return StatusCode(201);
     }
 }

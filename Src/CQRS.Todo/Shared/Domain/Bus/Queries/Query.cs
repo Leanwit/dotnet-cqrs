@@ -1,6 +1,5 @@
-namespace CQRS.Todo.Shared.Domain.Bus.Queries
+namespace CQRS.Todo.Shared.Domain.Bus.Queries;
+
+public abstract class Query
 {
-    public abstract class Query
-    {
-    }
 }

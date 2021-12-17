@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace CQRS.Todo.Shared.Domain.Bus.Commands
+namespace CQRS.Todo.Shared.Domain.Bus.Commands;
+
+public interface CommandBus
 {
-    public interface CommandBus
-    {
-        Task Dispatch(Command command);
-    }
+    Task Dispatch(Command command);
 }

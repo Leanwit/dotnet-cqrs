@@ -4,26 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using CQRS.Todo.Items.Domain;
 
-namespace CQRS.Todo.Items.Infrastructure
+namespace CQRS.Todo.Items.Infrastructure;
+
+public class InMemoryItemRepository : ItemRepository
 {
-    public class InMemoryItemRepository : ItemRepository
+    private readonly List<Item> _context;
+
+    public InMemoryItemRepository()
     {
-        private readonly List<Item> _context;
+        _context = new List<Item>();
+    }
 
-        public InMemoryItemRepository()
-        {
-            _context = new List<Item>();
-        }
-
-        public Task<Item> GetById(Guid id)
-        {
-            return Task.FromResult(_context.FirstOrDefault(x => x.Id.Equals(id)));
-        }
+    public Task<Item> GetById(Guid id)
+    {
+        return Task.FromResult(_context.FirstOrDefault(x => x.Id.Equals(id)));
+    }
         
-        public Task Add(Item item)
-        {
-            _context.Add(item);
-            return Task.CompletedTask;
-        }
+    public Task Add(Item item)
+    {
+        _context.Add(item);
+        return Task.CompletedTask;
     }
 }

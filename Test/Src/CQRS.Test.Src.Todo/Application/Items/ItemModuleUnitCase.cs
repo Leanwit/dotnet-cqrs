@@ -1,25 +1,24 @@
 using CQRS.Todo.Items.Domain;
 using Moq;
 
-namespace CQRS.Test.Src.Todo.Application.Items
+namespace CQRS.Test.Src.Todo.Application.Items;
+
+public class ItemModuleUnitCase
 {
-    public class ItemModuleUnitCase
+    protected readonly Mock<ItemRepository> Repository;
+
+    public ItemModuleUnitCase()
     {
-        protected readonly Mock<ItemRepository> Repository;
+        Repository = new Mock<ItemRepository>();
+    }
 
-        public ItemModuleUnitCase()
-        {
-            this.Repository = new Mock<ItemRepository>();
-        }
+    protected void ShouldHaveSave(Item item)
+    {
+        Repository.Verify(x => x.Add(item), Times.AtLeastOnce());
+    }
 
-        protected void ShouldHaveSave(Item item)
-        {
-            this.Repository.Verify(x => x.Add(item), Times.AtLeastOnce());
-        }
-
-        protected void ShouldSearch(Item response)
-        {
-            this.Repository.Setup(x => x.GetById(response.Id)).ReturnsAsync(response);
-        }
+    protected void ShouldSearch(Item response)
+    {
+        Repository.Setup(x => x.GetById(response.Id)).ReturnsAsync(response);
     }
 }
